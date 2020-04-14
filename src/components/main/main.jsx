@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const createMoviesCardTemplate = (moviesList) => {
+const createMoviesCardTemplate = (moviesList, onMovieTitleClick) => {
   return moviesList
   .map((movie, i) => {
     return (
@@ -10,16 +10,15 @@ const createMoviesCardTemplate = (moviesList) => {
           <img src="img/pulp-fiction.jpg" alt={movie} width={280} height={175} />
         </div>
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{movie}</a>
+          <a className="small-movie-card__link" onClick={onMovieTitleClick} href="#">{movie}</a>
         </h3>
       </article>
     );
   });
 };
 
-const Main = ({promoFilm, filmList}) => {
+const Main = ({promoFilm, filmList, onMovieTitleClick}) => {
   const {filmName, filmGenre, filmYear} = promoFilm;
-  const _filmList = filmList;
 
   return (
     <div>
@@ -139,7 +138,7 @@ const Main = ({promoFilm, filmList}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
-            {createMoviesCardTemplate(_filmList)}
+            {createMoviesCardTemplate(filmList, onMovieTitleClick)}
           </div>
         </section>
         <footer className="page-footer">
@@ -165,7 +164,8 @@ Main.propTypes = {
     filmName: PropTypes.string.isRequired,
     filmGenre: PropTypes.string.isRequired,
     filmYear: PropTypes.number.isRequired
-  }).isRequired
+  }).isRequired,
+  onMovieTitleClick: PropTypes.func
 };
 
 export default Main;
