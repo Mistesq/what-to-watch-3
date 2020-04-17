@@ -44,7 +44,7 @@ class MovieCard extends PureComponent {
       >
         <div className="small-movie-card__image">
           <VideoPlayer
-            previewSrc={previewSrc}
+            src={previewSrc}
             isPlaying={this.state.isPlaying}
             previewImage={`img/${previewImage}`}
             muted={true}

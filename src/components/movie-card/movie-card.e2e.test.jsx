@@ -27,7 +27,7 @@ describe(`MovieCard group`, () => {
     );
 
   it(`MovieCard click on card/title is correct`, () => {
-    const movieTitleLink = movieCards.find(`.small-movie-card__link`);
+    const movieTitleLink = movieCard.find(`.small-movie-card__link`);
     movieTitleLink.forEach((it) => {
       it.props().onClick();
     });
@@ -37,7 +37,7 @@ describe(`MovieCard group`, () => {
 
   it(`MovieCard mouseenter event is correctly changes state`, () => {
     movieCard.simulate(`mouseenter`);
-    expect(movieCard.state().activeCard).toEqual(film);
+    expect(movieCard.state().activeCard).toEqual(testMovie);
   });
 
   it(`MovieCard mouseleave event is correctly changes state`, () => {

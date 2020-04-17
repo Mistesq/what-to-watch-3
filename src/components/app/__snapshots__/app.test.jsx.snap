@@ -373,11 +373,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Bohemian Rhapsody"
-              height={175}
-              src="img/pulp-fiction.jpg"
-              width={280}
+            <video
+              height="175"
+              width="280"
             />
           </div>
           <h3
@@ -400,11 +398,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Battlefield Earth: A Saga of the Year 3000"
-              height={175}
-              src="img/pulp-fiction.jpg"
-              width={280}
+            <video
+              height="175"
+              width="280"
             />
           </div>
           <h3

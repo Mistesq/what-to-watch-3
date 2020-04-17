@@ -29,7 +29,11 @@ const promoFilmTest = {
 
 it(`Render App`, () => {
   const tree = renderer
-    .create(<App promoFilm={promoFilmTest} movieList={movieTestList} />)
+    .create(<App promoFilm={promoFilmTest} movieList={movieTestList} />, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

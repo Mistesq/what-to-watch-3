@@ -29,7 +29,11 @@ const promoFilmTest = {
 
 it(`Should main-screen render correctly`, () => {
   const tree = renderer
-    .create(<Main promoFilm={promoFilmTest} movieList={movieTestList} onMovieTitleClick={() => {}} />)
+    .create(<Main promoFilm={promoFilmTest} movieList={movieTestList} onMovieTitleClick={() => {}} />, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -17,7 +17,11 @@ it(`Should movie card render correctly`, () => {
       key={testMovie.id}
       film={testMovie}
       onMovieTitleClick={() => {}}
-    />)
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
