@@ -6,8 +6,9 @@ const testMovie = {
   id: 1,
   title: `Bohemian Rhapsody`,
   genre: `Drama`,
+  previewSrc: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   year: 2019,
-  img: `bohemian-rhapsody.jpg`
+  previewImage: `bohemian-rhapsody.jpg`
 };
 
 it(`Should movie card render correctly`, () => {
@@ -16,8 +17,6 @@ it(`Should movie card render correctly`, () => {
       key={testMovie.id}
       film={testMovie}
       onMovieTitleClick={() => {}}
-      onCardMouseHoverOn={() => {}}
-      onCardMouseHoverOff={() => {}}
     />)
     .toJSON();
 

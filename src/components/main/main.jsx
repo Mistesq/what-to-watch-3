@@ -155,7 +155,8 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired
+    previewImage: PropTypes.string.isRequired,
+    previewSrc: PropTypes.string.isRequired
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired
 };

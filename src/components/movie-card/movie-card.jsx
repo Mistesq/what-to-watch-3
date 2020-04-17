@@ -1,26 +1,54 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
+import VideoPlayer from "./../video-player/video-player.jsx";
+
 class MovieCard extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isPlaying: false,
+      activeCard: null
+    };
+
+    this._handleCardMouseHoverOn = this._handleCardMouseHoverOn.bind(this);
+    this._handleCardMouseHoverOff = this._handleCardMouseHoverOff.bind(this);
+  }
+
+  _handleCardMouseHoverOn() {
+    const {film} = this.props;
+    this.setState({
+      activeCard: film,
+      isPlaying: true
+    });
+  }
+
+  _handleCardMouseHoverOff() {
+    this.setState({
+      activeCard: null,
+      isPlaying: false
+    });
   }
 
   render() {
-    const {film, onMovieTitleClick, onCardMouseHoverOn, onCardMouseHoverOff} = this.props;
-    const {id, title} = film;
+    const {film, onMovieTitleClick} = this.props;
+    const {id, title, previewImage, previewSrc} = film;
 
     return (
       <article
         key={id}
-        onMouseEnter={() => {
-          onCardMouseHoverOn(film);
-        }}
-        onMouseLeave={onCardMouseHoverOff}
+        onMouseEnter={this._handleCardMouseHoverOn}
+        onMouseLeave={this._handleCardMouseHoverOff}
         className="small-movie-card catalog__movies-card"
       >
         <div className="small-movie-card__image">
-          <img src="img/pulp-fiction.jpg" alt={title} width={280} height={175} />
+          <VideoPlayer
+            previewSrc={previewSrc}
+            isPlaying={this.state.isPlaying}
+            previewImage={`img/${previewImage}`}
+            muted={true}
+          />
         </div>
         <h3 className="small-movie-card__title">
           <a className="small-movie-card__link" href="#" onClick={onMovieTitleClick}>{title}</a>
@@ -33,11 +61,13 @@ class MovieCard extends PureComponent {
 MovieCard.propTypes = {
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    previewSrc: PropTypes.string.isRequired
   }).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
-  onCardMouseHoverOn: PropTypes.func.isRequired,
-  onCardMouseHoverOff: PropTypes.func.isRequired
+  onMovieTitleClick: PropTypes.func.isRequired
 };
 
 export default MovieCard;

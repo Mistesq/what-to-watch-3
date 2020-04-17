@@ -5,21 +5,6 @@ import MovieCard from "./../movie-card/movie-card.jsx";
 class MovieList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {activeCard: null};
-    this._onCardMouseHoverOn = this._onCardMouseHoverOn.bind(this);
-    this._onCardMouseHoverOff = this._onCardMouseHoverOff.bind(this);
-  }
-
-  _onCardMouseHoverOn(movie) {
-    this.setState({
-      activeCard: movie
-    });
-  }
-
-  _onCardMouseHoverOff() {
-    this.setState({
-      activeCard: null
-    });
   }
 
   render() {
@@ -31,8 +16,6 @@ class MovieList extends PureComponent {
             key={movie.id}
             film={movie}
             onMovieTitleClick={onMovieTitleClick}
-            onCardMouseHoverOn={this._onCardMouseHoverOn}
-            onCardMouseHoverOff={this._onCardMouseHoverOff}
           />
         )}
       </div>
@@ -43,7 +26,11 @@ class MovieList extends PureComponent {
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    previewSrc: PropTypes.string.isRequired
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired
 };

@@ -7,48 +7,42 @@ const testMovie = {
   id: 1,
   title: `Bohemian Rhapsody`,
   genre: `Drama`,
+  previewSrc: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   year: 2019,
-  img: `bohemian-rhapsody.jpg`
+  previewImage: `bohemian-rhapsody.jpg`
 };
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should movie title button be pressed`, () => {
+describe(`MovieCard group`, () => {
   const onMovieTitleClick = jest.fn();
-  const movieCards = shallow(
+  const movieCard = shallow(
       <MovieCard
         key={testMovie.id}
         film={testMovie}
         onMovieTitleClick={onMovieTitleClick}
-        onCardMouseHoverOn={() => {}}
-        onCardMouseHoverOff={() => {}}
       />
-  );
+    );
 
-  const movieTitleLink = movieCards.find(`.small-movie-card__link`);
+  it(`MovieCard click on card/title is correct`, () => {
+    const movieTitleLink = movieCards.find(`.small-movie-card__link`);
+    movieTitleLink.forEach((it) => {
+      it.props().onClick();
+    });
 
-  movieTitleLink.forEach((it) => {
-    it.props().onClick();
+    expect(onMovieTitleClick).toHaveBeenCalledTimes(1);
   });
 
-  expect(onMovieTitleClick.mock.calls.length).toBe(1);
-});
+  it(`MovieCard mouseenter event is correctly changes state`, () => {
+    movieCard.simulate(`mouseenter`);
+    expect(movieCard.state().activeCard).toEqual(film);
+  });
 
-it(`Handler mouse get data`, () => {
-  const onCardMouseHover = jest.fn();
-  const movieCards = shallow(
-      <MovieCard
-        key={testMovie.id}
-        film={testMovie}
-        onMovieTitleClick={() => {}}
-        onCardMouseHoverOn={onCardMouseHover}
-        onCardMouseHoverOff={() => {}}
-      />
-  );
-  const movieCard = movieCards.find(`article`);
-  movieCard.simulate(`mouseEnter`);
-  expect(onCardMouseHover.mock.calls.length).toBe(1);
-  expect(onCardMouseHover.mock.calls[0][0]).toMatchObject(testMovie);
+  it(`MovieCard mouseleave event is correctly changes state`, () => {
+    movieCard.simulate(`mouseleave`);
+    expect(movieCard.state().isPlaying).toBe(false);
+    expect(movieCard.state().activeCard).toEqual(null);
+  });
 });
