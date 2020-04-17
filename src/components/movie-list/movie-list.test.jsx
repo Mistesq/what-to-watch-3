@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import MovieList from "./movie-list.jsx";
 
 const movieTestList = [
   {
@@ -19,15 +19,14 @@ const movieTestList = [
   }
 ];
 
-const promoFilmTest = {
-  filmName: `The Wizard of Oz`,
-  filmGenre: `Adventure`,
-  filmYear: 1939
-};
-
-it(`Should main-screen render correctly`, () => {
+it(`Should movie list render correctly`, () => {
   const tree = renderer
-    .create(<Main promoFilm={promoFilmTest} movieList={movieTestList} onMovieTitleClick={() => {}} />)
+    .create(
+        <MovieList
+          movies={movieTestList}
+          onMovieTitleClick={() => {}}
+        />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
