@@ -7,7 +7,7 @@ const film = {
   title: `Bohemian Rhapsody`,
   genre: `Drama`,
   previewSrc: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  year: 2019,
+  releaseDate: 2019,
   previewImage: `bohemian-rhapsody.jpg`
 };
 
