@@ -6,6 +6,8 @@ import MoviePage from "../movie-page/movie-page.jsx";
 
 const movieTitleClickHandler = () => {};
 
+const SIMILAR_FILMS_COUNT = 4;
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -27,9 +29,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage
-              film={movieList[1]}
-            />
+            <MoviePage film={movieList[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -41,7 +41,8 @@ class App extends PureComponent {
     const {selectedMovieId} = this.state;
 
     if (selectedMovieId !== null) {
-      return <MoviePage film={movieList[selectedMovieId]}/>;
+      const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
+      return <MoviePage film={movieList[selectedMovieId] similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
     }
 
     return <Main
