@@ -4,8 +4,6 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import MoviePage from "../movie-page/movie-page.jsx";
 
-const movieTitleClickHandler = () => {};
-
 const SIMILAR_FILMS_COUNT = 4;
 
 class App extends PureComponent {
@@ -20,7 +18,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {movieList} = this.props;
+    const {films} = this.props;
 
     return (
       <BrowserRouter>
@@ -29,7 +27,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={movieList[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
+            <MoviePage film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -37,18 +35,17 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {movieList} = this.props;
+    const {films} = this.props;
     const {selectedMovieId} = this.state;
 
     if (selectedMovieId !== null) {
       const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
-      return <MoviePage film={movieList[selectedMovieId] similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
+      return <MoviePage film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
     }
 
     return <Main
       promoFilm={this.props.promoFilm}
-      movieList={this.props.movieList}
-      onMovieTitleClick={movieTitleClickHandler}
+      films={this.props.films}
       onCardClick={this._handleSmallMovieCardClick}
     />;
   }
@@ -64,7 +61,7 @@ App.propTypes = {
     filmGenre: PropTypes.string.isRequired,
     filmYear: PropTypes.number.isRequired
   }).isRequired,
-  movieList: PropTypes.arrayOf(PropTypes.shape({
+  films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,

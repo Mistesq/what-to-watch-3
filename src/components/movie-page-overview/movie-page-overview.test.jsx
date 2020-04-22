@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import VideoPlayer from "./video-player";
+import React from "react";
+import renderer from "react-test-renderer";
+import MoviePageOverview from "./movie-page-overview";
 
 const film = {
   id: 0,
@@ -37,17 +37,11 @@ const film = {
   ],
 };
 
-it(`VideoPlayer component should render correct`, () => {
-  const tree = renderer.create(<VideoPlayer
-    src={film.previewSrc}
-    isPlaying={false}
-    previewImage={film.previewImage}
-    muted={true}
-  />, {
-    createNodeMock: () => {
-      return {};
-    }
-  }).toJSON();
+
+it(`MoviePageOverview component should render correct`, () => {
+  const tree = renderer
+    .create(<MoviePageOverview film={film} />)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

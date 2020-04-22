@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import VideoPlayer from "./video-player";
+import React from "react";
+import renderer from "react-test-renderer";
+import MoviePageReviews from "./movie-page-reviews";
 
 const film = {
   id: 0,
@@ -28,8 +28,8 @@ const film = {
     {
       id: 1,
       text: `Andersons films are too precious for some, but for those of us willing to
-      lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
-      has added a hint of gravitas to the mix, improving the recipe.`,
+                lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+                has added a hint of gravitas to the mix, improving the recipe.`,
       author: `Bill Goodykoontz`,
       date: `November 18, 2015`,
       rating: `8,0`
@@ -37,17 +37,10 @@ const film = {
   ],
 };
 
-it(`VideoPlayer component should render correct`, () => {
-  const tree = renderer.create(<VideoPlayer
-    src={film.previewSrc}
-    isPlaying={false}
-    previewImage={film.previewImage}
-    muted={true}
-  />, {
-    createNodeMock: () => {
-      return {};
-    }
-  }).toJSON();
+it(`MoviePageReviews component should render correct`, () => {
+  const tree = renderer
+    .create(<MoviePageReviews film={film} />)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

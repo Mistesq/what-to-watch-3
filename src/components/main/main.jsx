@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import MovieList from "./../movie-list/movie-list.jsx";
 
-const Main = ({promoFilm, movieList, onMovieTitleClick}) => {
+const Main = ({promoFilm, films, onCardClick}) => {
   const {filmName, filmGenre, filmYear} = promoFilm;
 
   return (
@@ -123,8 +123,8 @@ const Main = ({promoFilm, movieList, onMovieTitleClick}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MovieList
-            movies={movieList}
-            onMovieTitleClick={onMovieTitleClick}
+            movies={films}
+            onCardClick={onCardClick}
           />
         </section>
         <footer className="page-footer">
@@ -150,7 +150,7 @@ Main.propTypes = {
     filmGenre: PropTypes.string.isRequired,
     filmYear: PropTypes.number.isRequired
   }).isRequired,
-  movieList: PropTypes.arrayOf(PropTypes.shape({
+  films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
@@ -166,7 +166,7 @@ Main.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     runTime: PropTypes.number.isRequired
   })).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default Main;

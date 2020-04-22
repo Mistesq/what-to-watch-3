@@ -25,7 +25,7 @@ exports[`Should movie list render correctly 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Bohemian Rhapsody
+        The Grand Budapest Hotel
       </a>
     </h3>
   </article>
@@ -50,7 +50,7 @@ exports[`Should movie list render correctly 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Battlefield Earth: A Saga of the Year 3000
+        Bohemian Rhapsody
       </a>
     </h3>
   </article>

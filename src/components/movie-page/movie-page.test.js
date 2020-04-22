@@ -1,4 +1,9 @@
-export const films = [
+
+import React from "react";
+import renderer from "react-test-renderer";
+import MoviePage from "./movie-page";
+
+const films = [
   {
     id: 0,
     title: `The Grand Budapest Hotel`,
@@ -220,11 +225,19 @@ export const films = [
         rating: `8,0`
       }
     ],
-  },
+  }
 ];
 
-export const PromoFilm = {
-  filmName: `The Grand Budapest Hotel`,
-  filmGenre: `Drama`,
-  filmYear: 2014
-};
+const similarFilms = films.slice(0, 4);
+
+it(`MoviePage component should render correct`, () => {
+  const tree = renderer
+    .create(<MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}}/>, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

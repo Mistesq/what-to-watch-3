@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import Tab from "../tab/tab.jsx";
-import MoviesList from "../movies-list/movies-list.jsx";
+import MovieList from "../movie-list/movie-list.jsx";
 
 export default class MoviePage extends React.PureComponent {
   constructor(props) {
@@ -95,7 +95,7 @@ export default class MoviePage extends React.PureComponent {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList films={similarFilms} onCardClick={onCardClick}/>
+          <MovieList movies={similarFilms} onCardClick={onCardClick}/>
         </section>
 
         <footer className="page-footer">
