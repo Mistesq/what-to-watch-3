@@ -1,4 +1,4 @@
-import films from "./mocks/films";
+import {films} from "./mocks/films.js";
 
 const ALL_GENRES = `All genres`;
 const GENRES_MAX_COUNT = 9;

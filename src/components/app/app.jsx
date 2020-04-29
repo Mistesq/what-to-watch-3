@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import MoviePage from "../movie-page/movie-page.jsx";
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
 const SIMILAR_FILMS_COUNT = 4;
 
