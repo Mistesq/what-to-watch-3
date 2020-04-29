@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
 import MovieList from "./../movie-list/movie-list.jsx";
+import GenreList from "../genre-list/genre-list.jsx";
+import ShowMore from "../show-more/show-more.jsx";
 
-const Main = ({promoFilm, films, onCardClick}) => {
+const Main = ({promoFilm, films, onCardClick, genres, filterType, onFilterClick, onShowMoreClick, showingCardsCount}) => {
   const {filmName, filmGenre, filmYear} = promoFilm;
 
   return (
@@ -122,10 +126,9 @@ const Main = ({promoFilm, films, onCardClick}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList
-            movies={films}
-            onCardClick={onCardClick}
-          />
+          <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
+          <MovieList movies={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
+          {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -166,7 +169,29 @@ Main.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     runTime: PropTypes.number.isRequired
   })).isRequired,
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filterType: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
+  showingCardsCount: PropTypes.number.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  filterType: state.filterType,
+  genres: state.genres,
+  showingCardsCount: state.showingCardsCount
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFilterClick(filterType) {
+    dispatch(ActionCreator.changeGenreFilter(filterType));
+    dispatch(ActionCreator.getFilteredMovieCards());
+  },
+  onShowMoreClick() {
+    dispatch(ActionCreator.incrementShowingCardsCount());
+  }
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

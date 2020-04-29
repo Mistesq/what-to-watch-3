@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
+
+const ALL_GENRES = `All genres`;
 
 const movieTestList = [
   {
@@ -77,6 +79,11 @@ it(`Should main-screen render correctly`, () => {
       promoFilm={promoFilmTest}
       films={movieTestList}
       onCardClick={() => {}}
+      genres={[ALL_GENRES]}
+      filterType={ALL_GENRES}
+      onFilterClick={() => {}}
+      showingCardsCount={8}
+      onShowMoreClick={() => {}}
     />, {
       createNodeMock: () => {
         return {};
