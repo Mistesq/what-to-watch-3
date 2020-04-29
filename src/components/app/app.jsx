@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import MoviePage from "../movie-page/movie-page.jsx";
+import {connect} from "react-redux"
 
 const SIMILAR_FILMS_COUNT = 4;
 
@@ -74,8 +75,14 @@ App.propTypes = {
     ratingCount: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    runTime: PropTypes.number.isRequired
   }))
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.movieCards,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
