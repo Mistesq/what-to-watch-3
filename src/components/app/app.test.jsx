@@ -1,7 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
-jest.mock(`../main/main.jsx`, () => `Main`);
 
 const movieTestList = [
   {
@@ -76,7 +75,7 @@ it(`Render App`, () => {
 
   const tree = renderer
   .create(
-      <App promoFilm={promoFilmTest} films={movieTestList} />, {
+      <App promoFilm={promoFilmTest} films={movieTestList} selectedMovieId={0} onCardClick={() => {}}/>, {
         createNodeMock: () => {
           return {};
         }

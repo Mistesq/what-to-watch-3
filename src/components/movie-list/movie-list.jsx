@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MovieCard from "./../movie-card/movie-card.jsx";
+const MovieCardWrapped = withActiveItem(MovieCard);
 
 class MovieList extends PureComponent {
   constructor(props) {
@@ -12,11 +14,7 @@ class MovieList extends PureComponent {
     return (
       <div className="catalog__movies-list">
         {movies.map((movie) =>
-          <MovieCard
-            key={movie.id}
-            film={movie}
-            onCardClick={onCardClick}
-          />
+          <MovieCardWrapped film={film} onCardClick={onCardClick} key={film.id}/>
         )}
       </div>
     );

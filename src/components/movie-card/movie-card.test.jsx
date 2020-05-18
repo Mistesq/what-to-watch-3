@@ -35,6 +35,8 @@ it(`Should movie card render correctly`, () => {
       key={testMovie.id}
       film={testMovie}
       onCardClick={() => {}}
+      activeItem={0}
+      onActiveItemChange={() => {}}
     />, {
       createNodeMock: () => {
         return {};

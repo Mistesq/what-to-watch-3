@@ -36,13 +36,10 @@ Enzyme.configure({
 
 describe(`MovieCard group`, () => {
   const onCardClick = jest.fn();
-  const movieCard = shallow(
-      <MovieCard
-        key={testMovie.id}
-        film={testMovie}
-        onCardClick={onCardClick}
-      />
-  );
+  const activeItemChangeHandler = jest.fn();
+  const wrapper = shallow(<MovieCard film={film} onCardClick={onCardClick} activeItem={0} onActiveItemChange={activeItemChangeHandler}/>);
+  const card = wrapper.find(`article`);
+
 
   it(`MovieCard click on card/title is correct`, () => {
     const movieTitleLink = movieCard.find(`.small-movie-card__link`);
@@ -53,14 +50,20 @@ describe(`MovieCard group`, () => {
     expect(onCardClick).toHaveBeenCalledTimes(1);
   });
 
-  it(`MovieCard mouseenter event is correctly changes state`, () => {
-    movieCard.simulate(`mouseenter`);
-    expect(movieCard.state().activeCard).toEqual(testMovie);
-  });
+  // it(`MovieCard mouseenter event is correctly changes state`, () => {
+  //   movieCard.simulate(`mouseenter`);
+  //   expect(movieCard.state().activeCard).toEqual(testMovie);
+  // });
+  //
+  // it(`MovieCard mouseleave event is correctly changes state`, () => {
+  //   movieCard.simulate(`mouseleave`);
+  //   expect(movieCard.state().isPlaying).toBe(false);
+  //   expect(movieCard.state().activeCard).toEqual(null);
+  // });
 
-  it(`MovieCard mouseleave event is correctly changes state`, () => {
-    movieCard.simulate(`mouseleave`);
-    expect(movieCard.state().isPlaying).toBe(false);
-    expect(movieCard.state().activeCard).toEqual(null);
+  it(`SmallMovieCard mouseleave event is correct`, () => {
+    card.simulate(`mouseleave`);
+    expect(activeItemChangeHandler).toHaveBeenCalledTimes(1);
+    expect(activeItemChangeHandler).toBeCalledWith(-1);
   });
 });

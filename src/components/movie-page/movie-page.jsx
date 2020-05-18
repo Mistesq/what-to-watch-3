@@ -4,32 +4,17 @@ import Tabs from "../tabs/tabs.jsx";
 import Tab from "../tab/tab.jsx";
 import MovieList from "../movie-list/movie-list.jsx";
 
-export default class MoviePage extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const MoviePage = (props) => {
+  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange} = props;
+  const {title, genre, releaseDate, posterImage, backgroundImage} = film;
 
-    this._handleTabClick = this._handleTabClick.bind(this);
-
-    this.state = {
-      activeTabIndex: 0
-    };
-  }
-
-  _handleTabClick(activeTabIndex) {
-    this.setState({activeTabIndex});
-  }
-
-  render() {
-    const {film, similarFilms, onCardClick} = this.props;
-    const {title, genre, releaseDate, posterImage, backgroundImage} = film;
-
-    return (<React.Fragment>
+  return (
+    <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={`img/${backgroundImage}`} alt={title}/>
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header movie-card__head">
@@ -83,10 +68,10 @@ export default class MoviePage extends React.PureComponent {
 
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
-                <Tabs onTabClick={this._handleTabClick} activeTab={this.state.activeTabIndex} />
+                <Tabs onTabClick={onActiveItemChange} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} />
               </nav>
 
-              <Tab film={film} activeTab={this.state.activeTabIndex} />
+              <Tab film={film} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} />
             </div>
           </div>
         </div>
@@ -113,7 +98,6 @@ export default class MoviePage extends React.PureComponent {
         </footer>
       </div>
     </React.Fragment>);
-  }
 }
 
 MoviePage.propTypes = {
@@ -134,6 +118,8 @@ MoviePage.propTypes = {
     runTime: PropTypes.number.isRequired,
   }).isRequired,
   onCardClick: PropTypes.func.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired,
+  activeItem: PropTypes.number.isRequired,
   similarFilms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -151,3 +137,5 @@ MoviePage.propTypes = {
     runTime: PropTypes.number.isRequired,
   })).isRequired,
 };
+
+export default MoviePage;

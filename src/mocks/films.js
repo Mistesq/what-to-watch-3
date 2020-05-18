@@ -221,6 +221,74 @@ export const films = [
       }
     ],
   },
+  {
+    id: 8,
+    title: `Johnny English`,
+    previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    genre: `Sci-Fi`,
+    releaseDate: 2004,
+    posterImage: `the-grand-budapest-hotel-poster.jpg`,
+    backgroundImage: `bg-the-grand-budapest-hotel.jpg`,
+    ratingScore: 8.7,
+    ratingCount: 2440,
+    description: `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+    director: `director8`,
+    starring: [`Bill Murray`, `Edward Norton`, `actor`, `actor2`],
+    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 40,
+    comments: [
+      {
+        id: 0,
+        text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+        rating: `8,9`
+      },
+      {
+        id: 1,
+        text: `Andersons films are too precious for some, but for those of us willing to
+        lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+        has added a hint of gravitas to the mix, improving the recipe.`,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+        rating: `8,0`
+      }
+    ],
+  },
+  {
+    id: 9,
+    title: `Johnny English`,
+    previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    genre: `Sci-Fi`,
+    releaseDate: 2004,
+    posterImage: `the-grand-budapest-hotel-poster.jpg`,
+    backgroundImage: `bg-the-grand-budapest-hotel.jpg`,
+    ratingScore: 8.7,
+    ratingCount: 2440,
+    description: `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+    director: `director8`,
+    starring: [`Bill Murray`, `Edward Norton`, `actor`, `actor2`],
+    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 40,
+    comments: [
+      {
+        id: 0,
+        text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+        rating: `8,9`
+      },
+      {
+        id: 1,
+        text: `Andersons films are too precious for some, but for those of us willing to
+        lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+        has added a hint of gravitas to the mix, improving the recipe.`,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+        rating: `8,0`
+      }
+    ],
+  },
 ];
 
 export const PromoFilm = {

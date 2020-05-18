@@ -7,32 +7,22 @@ class MovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isPlaying: false,
-      activeCard: null
-    };
-
     this._handleCardMouseHoverOn = this._handleCardMouseHoverOn.bind(this);
     this._handleCardMouseHoverOff = this._handleCardMouseHoverOff.bind(this);
   }
 
   _handleCardMouseHoverOn() {
-    const {film} = this.props;
-    this.setState({
-      activeCard: film,
-      isPlaying: true
-    });
+    const {film, onActiveItemChange} = this.props;
+    onActiveItemChange(film.id);
   }
 
   _handleCardMouseHoverOff() {
-    this.setState({
-      activeCard: null,
-      isPlaying: false
-    });
+    const {onActiveItemChange} = this.props;
+    onActiveItemChange(-1);
   }
 
   render() {
-    const {film, onCardClick} = this.props;
+    const {film, onCardClick, activeItem: activeCardId} = this.props;
     const {id, title, previewImage, previewSrc} = film;
 
     return (
@@ -45,7 +35,7 @@ class MovieCard extends PureComponent {
         <div className="small-movie-card__image">
           <VideoPlayer
             src={previewSrc}
-            isPlaying={this.state.isPlaying}
+            isPlaying={film.id === activeCardId}
             previewImage={`img/${previewImage}`}
             muted={true}
           />
@@ -75,7 +65,9 @@ MovieCard.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     runTime: PropTypes.number.isRequired,
   }).isRequired,
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired,
+  activeItem: PropTypes.number.isRequired,
 };
 
 export default MovieCard;

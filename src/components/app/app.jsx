@@ -4,22 +4,39 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import MoviePage from "../movie-page/movie-page.jsx";
 import {connect} from "react-redux";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import {ActionCreator} from "../../reducer";
+const MoviePageWrapped = withActiveItem(MoviePage);
 
 const SIMILAR_FILMS_COUNT = 4;
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
+  }
 
-    this._handleSmallMovieCardClick = this._handleSmallMovieCardClick.bind(this);
+  _renderApp() {
+    const {films, onCardClick, selectedMovieId} = this.state;
 
-    this.state = {
-      selectedMovieId: null
-    };
+    if (selectedMovieId >= 0) {
+      const selectedMovie = films.find((film) => film.id === selectedMovieId);
+      const similarFilms = films.filter((film) => film.id !== selectedMovieId && film.genre === selectedMovie.genre);
+      return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} />;
+    }
+
+    return <Main
+      promoFilm={this.props.promoFilm}
+      films={films}
+      onCardClick={onCardClick}
+    />;
+  }
+
+  _handleSmallMovieCardClick(selectedMovieId) {
+    this.setState({selectedMovieId});
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onCardClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -28,31 +45,11 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
+            <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={onCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>
     );
-  }
-
-  _renderApp() {
-    const {films} = this.props;
-    const {selectedMovieId} = this.state;
-
-    if (selectedMovieId !== null) {
-      const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
-      return <MoviePage film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
-    }
-
-    return <Main
-      promoFilm={this.props.promoFilm}
-      films={this.props.films}
-      onCardClick={this._handleSmallMovieCardClick}
-    />;
-  }
-
-  _handleSmallMovieCardClick(selectedMovieId) {
-    this.setState({selectedMovieId});
   }
 }
 
@@ -68,6 +65,8 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
+    onCardClick: PropTypes.func.isRequired,
+    selectedMovieId: PropTypes.number.isRequired,
     previewSrc: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
@@ -82,7 +81,14 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: state.movieCards,
+  selectedMovieId: state.selectedMovieId
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCardClick(id) {
+    dispatch(ActionCreator.setMovieCardId(id));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
